@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Γνώρισε τον Κέρβο, τον ελληνικό φωνητικό βοηθό που ζει σε μια φούσκα στην άκρη της οθόνης σου.">
+  <title>Κέρβος · Πες το όπως σου βγαίνει</title>
+  <meta property="og:title" content="Κέρβος · Πες το όπως σου βγαίνει">
+  <meta property="og:description" content="Ο ελληνικός φωνητικός βοηθός της οικογένειας, σε μια φούσκα στο κινητό σου.">
+  <meta property="og:image" content="assets/og-kervos.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/faces/neutral.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/notosans/v42/o-0bIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjc5a7duw.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/notosans/v42/o-0bIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjc5a3du2ui.woff2">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&amp;display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Στο περιεχόμενο</a>
+  <header class="shell header">
+    <a class="brand" href="#main"><img src="assets/faces/neutral.svg" width="220" height="220" alt="">Κέρβος</a>
+    <p id="brand-secret" role="status"></p>
+    <button class="language-switch language-desktop" type="button" data-language aria-label="Αλλαγή γλώσσας">ΕΛ / EN</button>
+    <button id="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Μενού"><span aria-hidden="true">☰</span></button>
+    <nav id="site-nav" aria-label="Κύρια πλοήγηση">
+      <a href="#messenger">Συνομιλία</a><a href="#day">Η μέρα</a><a href="#faces">Φατσούλες</a><a href="#button">Το κουμπί</a><a href="#questions">Ερωτήσεις</a><button class="language-switch language-mobile" type="button" data-language aria-label="Αλλαγή γλώσσας">ΕΛ / EN</button>
+    </nav>
+  </header>
+  <main id="main">
+    <section class="shell hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span></span> Ο φωνητικός βοηθός της οικογένειας</p>
+        <h1 id="hero-title">Πες το όπως <em>σου βγαίνει.</em></h1>
+        <p class="intro">Ο Κέρβος ζει σε μια μικρή φούσκα στην άκρη της οθόνης σου, πάνω από τις εφαρμογές σου. Πες «Κέρβε» και μίλα του στα ελληνικά.</p>
+        <a class="cta" href="#messenger">Μίλα στον Κέρβο <span aria-hidden="true">↘</span></a>
+        <p class="drag-tip">Δοκίμασε να σύρεις τη φούσκα στην άκρη της σελίδας.</p>
+      </div>
+      <div class="phone-demo">
+        <div class="phone" aria-label="Παράδειγμα του Κέρβου πάνω από μια εφαρμογή στο κινητό">
+          <div class="phone-status" aria-hidden="true"><span>08:47</span><span>● ▰</span></div>
+          <div class="phone-app" aria-hidden="true">
+            <div class="app-date">Τρίτη 18</div><div class="app-title">Η μέρα μου</div>
+            <div class="app-week"><span>Δ<b>17</b></span><span class="app-today">Τ<b>18</b></span><span>Τ<b>19</b></span><span>Π<b>20</b></span><span>Π<b>21</b></span></div>
+            <div class="app-event"><span></span><div>Πρωινός καφές<small>08:30</small></div></div>
+            <div class="app-event"><span></span><div>Λίστα για το σπίτι<small>12:00</small></div></div>
+          </div>
+          <div class="phone-overlay" aria-hidden="true">
+            <div class="phone-message" id="phone-message"><span id="phone-speaker">Κέρβος</span><p id="phone-text">Μπήκε: αύριο στις 6 το απόγευμα</p></div>
+            <div class="face-stack phone-face"><img width="220" height="220" src="assets/faces/proud.svg" alt=""><img width="220" height="220" alt=""></div>
+          </div>
+          <div class="phone-bottom"><button id="phone-mic" type="button" aria-label="Δοκίμασε το μικρόφωνο στο κινητό"><svg class="icon" aria-hidden="true"><use href="#mic"/></svg></button></div>
+        </div>
+        <p class="phone-caption">Η φούσκα μένει πάνω από την εφαρμογή σου.</p>
+        <p class="sr-only">Εσύ: Κέρβε, αύριο στις 6 γυμναστήριο. Κέρβος: Μπήκε: αύριο στις 6 το απόγευμα.</p>
+      </div>
+      <button class="motion-control" id="motion" type="button" hidden>Παύση κίνησης</button>
+    </section>
+    <section class="shell section messenger" id="messenger" aria-labelledby="messenger-title">
+      <div class="section-copy">
+        <h2 id="messenger-title">Κέρβος Messenger</h2>
+        <p class="demo-note">Διάλεξε ένα παράδειγμα για να δεις την απάντηση του Κέρβου.</p>
+      </div>
+      <div id="chat-home">
+        <div id="chat" class="chat">
+          <header class="chat-header">
+            <img src="assets/faces/neutral.svg" width="220" height="220" loading="lazy" alt="">
+            <div><strong>Κέρβος</strong><p>● εδώ για σένα</p></div>
+            <button type="button" id="chat-close" aria-label="Κλείσε τη συνομιλία" hidden>×</button>
+          </header>
+          <div class="chat-log" id="chat-log" role="log" aria-label="Μηνύματα συνομιλίας" tabindex="0">
+            <div class="message assistant"><img src="assets/faces/happy.svg" width="220" height="220" loading="lazy" alt=""><p><span class="sr-only">Κέρβος: </span>Γεια! Τι έχεις στο μυαλό σου;</p></div>
+            <div class="message user"><p><span class="sr-only">Εσύ: </span>Πάρε γάλα και αυγά</p></div>
+            <div class="message assistant"><img src="assets/faces/proud.svg" width="220" height="220" loading="lazy" alt=""><p><span class="sr-only">Κέρβος: </span>Στη λίστα: γάλα και αυγά.</p></div>
+          </div>
+          <p class="typing" id="typing" role="status"></p>
+          <div class="shortcuts" role="group" aria-label="Έτοιμες ερωτήσεις">
+            <button type="button" data-example="calendar">Αύριο στις 6 γυμναστήριο</button>
+            <button type="button" data-example="shopping">Πάρε γάλα και αυγά</button>
+            <button type="button" data-example="weather">Τι καιρό θα κάνει;</button>
+            <button type="button" data-example="memory">Θυμήσου ότι η Μαρία είναι αλλεργική στα φιστίκια</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell section understanding" aria-labelledby="understanding-title">
+      <h2 id="understanding-title">Σε καταλαβαίνει, ακόμα κι όταν ακούσει λάθος</h2>
+      <p>Πάτησε μια κάρτα για να δεις τι κατάλαβε.</p>
+      <div class="flip-grid">
+        <button class="flip-card" type="button" aria-pressed="false">
+          <span class="flip-inner"><span class="flip-side flip-front"><small>Η αναγνώριση έγραψε</small><strong>«μαύρο στις 6 γυμναστήριο»</strong><span class="flip-arrow" aria-hidden="true">↻</span></span>
+          <span class="flip-side flip-back"><small>Ο Κέρβος κατάλαβε</small><strong>«αύριο στις 6 το απόγευμα, Γυμναστήριο»</strong><span class="flip-arrow" aria-hidden="true">↻</span></span></span>
+        </button>
+        <button class="flip-card" type="button" aria-pressed="false">
+          <span class="flip-inner"><span class="flip-side flip-front"><small>Η αναγνώριση έγραψε</small><strong>«σε μισού ότι η Μαρία είναι αλλεργική στα φιστίκια»</strong><span class="flip-arrow" aria-hidden="true">↻</span></span>
+          <span class="flip-side flip-back"><small>Ο Κέρβος κατάλαβε</small><strong>«θυμήσου ότι η Μαρία είναι αλλεργική στα φιστίκια»</strong><span class="flip-arrow" aria-hidden="true">↻</span></span></span>
+        </button>
+        <button class="flip-card" type="button" aria-pressed="false">
+          <span class="flip-inner"><span class="flip-side flip-front"><small>Η αναγνώριση έγραψε</small><strong>«8/4»</strong><span class="flip-arrow" aria-hidden="true">↻</span></span>
+          <span class="flip-side flip-back"><small>Ο Κέρβος κατάλαβε</small><strong>«8 παρά τέταρτο»</strong><span class="flip-arrow" aria-hidden="true">↻</span></span></span>
+        </button>
+        <button class="flip-card" type="button" aria-pressed="false">
+          <span class="flip-inner"><span class="flip-side flip-front"><small>Η αναγνώριση έγραψε</small><strong>«μετά το γυμναστήριο μιάμιση ώρα αργότερα»</strong><span class="flip-arrow" aria-hidden="true">↻</span></span>
+          <span class="flip-side flip-back"><small>Ο Κέρβος κατάλαβε</small><strong>«μετακίνηση κατά 1,5 ώρα»</strong><span class="flip-arrow" aria-hidden="true">↻</span></span></span>
+        </button>
+      </div>
+      <p>Τον δοκιμάζουμε κάθε μέρα με εκατοντάδες «παγίδες» του λόγου.</p>
+    </section>
+
+    <section class="shell section road" aria-labelledby="road-title">
+      <div class="section-copy"><h2 id="road-title">Στον δρόμο, μαζί σου</h2><p>Ξέρει πού είσαι μόνο τη στιγμή που ρωτάς. Ποτέ στο παρασκήνιο.</p>
+        <div class="road-tabs" role="tablist" aria-label="Σενάρια στον δρόμο">
+          <button type="button" id="road-directions" role="tab" aria-controls="directions-panel" aria-selected="true">Οδηγίες</button>
+          <button type="button" id="road-tab-0" role="tab" aria-controls="road-panel-0" aria-selected="false" tabindex="-1">Παρκάρισμα</button>
+          <button type="button" id="road-tab-1" role="tab" aria-controls="road-panel-1" aria-selected="false" tabindex="-1">Κατάλυμα</button>
+          <button type="button" id="road-tab-2" role="tab" aria-controls="road-panel-2" aria-selected="false" tabindex="-1">Πού είμαι;</button>
+          <button type="button" id="road-tab-3" role="tab" aria-controls="road-panel-3" aria-selected="false" tabindex="-1">Πόσο απέχω;</button>
+        </div>
+      </div>
+      <div class="road-phone"><img class="road-bubble" src="assets/faces/listen.svg" width="220" height="220" loading="lazy" alt="">
+        <div id="directions-panel" class="road-dialogue directions-demo" role="tabpanel" aria-labelledby="road-directions" tabindex="0">
+          <p>🧭 Πώς πάω στο Airbnb;</p><p>Ανοίγω τη διαδρομή με τα μέσα μεταφοράς.</p>
+          <div class="route-visual" aria-hidden="true"><svg viewBox="0 0 240 112" fill="none"><use href="#road-map-base"/><path class="route-trace" pathLength="1" d="M37 84h47V65h45V42h63" stroke="#ffb300" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(192 42)"><use class="route-pin" href="#road-map-pin"/></g></svg></div>
+        </div>
+        <div id="road-panel-0" class="road-dialogue" role="tabpanel" aria-labelledby="road-tab-0" tabindex="0" hidden><p>Πάρκαρα εδώ</p><p>Το κράτησα 🚗</p><p>Πού είναι το αμάξι;</p><p>Σε πάω με τα πόδια.</p>
+          <div class="route-visual" aria-hidden="true"><svg viewBox="0 0 240 112" fill="none"><use href="#road-map-base"/><path class="route-trace" pathLength="1" d="M150 91H84V84H42" stroke="#ffb300" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(42 84)"><use class="route-pin" href="#road-map-pin"/></g></svg></div>
+        </div>
+        <div id="road-panel-1" class="road-dialogue" role="tabpanel" aria-labelledby="road-tab-1" tabindex="0" hidden><p>Αποθήκευσε αυτή τη διεύθυνση ως κατάλυμα</p><p>Το κράτησα.</p><p>Επιστροφή στο κατάλυμα</p><p>Ανοίγω τη διαδρομή για το κατάλυμα.</p>
+          <div class="route-visual" aria-hidden="true"><svg viewBox="0 0 240 112" fill="none"><use href="#road-map-base"/><path class="route-trace" pathLength="1" d="M37 84h47V65h45V42h63" stroke="#ffb300" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(192 42)"><use class="route-pin" href="#road-map-pin"/></g></svg></div>
+        </div>
+        <div id="road-panel-2" class="road-dialogue" role="tabpanel" aria-labelledby="road-tab-2" tabindex="0" hidden><p>Πού είμαι;</p><p>Είσαι στην Ομονοίας 12, Καβάλα 65302.</p>
+          <div class="route-visual" aria-hidden="true"><svg viewBox="0 0 240 112" fill="none"><use href="#road-map-base"/><g transform="translate(129 65)"><use class="route-pin" href="#road-map-pin"/></g></svg></div>
+        </div>
+        <div id="road-panel-3" class="road-dialogue" role="tabpanel" aria-labelledby="road-tab-3" tabindex="0" hidden>
+          <p>Πόσο απέχω από τη Θεσσαλονίκη;</p>
+          <p>Μέχρι Θεσσαλονίκη: 128 χλμ σε ευθεία. Διάλεξε διαδρομή:</p>
+          <div class="route-visual" aria-hidden="true"><svg viewBox="0 0 240 112" fill="none"><use href="#road-map-base"/><path class="route-trace" pathLength="1" d="M42 84h42V65h45V42h63" stroke="#ffb300" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(192 42)"><use class="route-pin" href="#road-map-pin"/></g></svg></div>
+          <div class="route-modes" role="group" aria-label="Επιλογές διαδρομής στην επίδειξη">
+            <button type="button" aria-label="Με αυτοκίνητο" disabled>🚗</button>
+            <button type="button" aria-label="Με τα πόδια" disabled>🚶</button>
+            <button type="button" aria-label="Με λεωφορείο" disabled>🚌</button>
+          </div>
+        </div>
+        <p class="road-example">Παράδειγμα συνομιλίας</p>
+      </div>
+    </section>
+    <section class="shell section help-section" aria-labelledby="help-title">
+      <h2 id="help-title">Αν χρειαστείς βοήθεια</h2>
+      <div class="help-grid">
+        <div><button id="nearby-help" type="button" aria-controls="help-options" aria-expanded="true">Βοήθεια κοντά μου</button>
+          <ul id="help-options">
+            <li><button type="button" data-help="Νοσοκομείο">Νοσοκομείο</button></li>
+            <li><button type="button" data-help="Εφημερεύον φαρμακείο">Εφημερεύον φαρμακείο</button></li>
+            <li><button type="button" data-help="Αστυνομία">Αστυνομία</button></li>
+            <li><a href="tel:112">112 <small>Έκτακτη ανάγκη</small></a></li>
+            <li><a href="tel:166">166 <small>ΕΚΑΒ</small></a></li>
+            <li><a href="tel:100">100 <small>Αστυνομία</small></a></li>
+            <li><a href="tel:199">199 <small>Πυροσβεστική</small></a></li>
+          </ul>
+          <p id="nearby-result" class="demo-note" role="status"></p>
+        </div>
+        <div><button id="emergency-demo" type="button">Έκτακτη ανάγκη</button><p class="demo-note">Προσομοίωση. Δεν ζητά ούτε στέλνει την τοποθεσία σου.</p>
+          <p id="emergency-preview">Στέλνω την τοποθεσία σου στη Μαρία σε 5…</p>
+          <div id="emergency-result" hidden><progress id="emergency-progress" max="5" value="5" aria-label="Χρόνος μέχρι τη λήξη της επίδειξης"></progress><p id="emergency-status" role="status"></p><button id="emergency-cancel" type="button">Άκυρο</button></div>
+        </div>
+      </div>
+      <p class="emergency-note">Ο Κέρβος δεν αντικαθιστά το <a href="tel:112">112</a>. Σε κίνδυνο, κάλεσε το <a href="tel:112">112</a>.</p>
+    </section>
+
+    <section class="shell section promises" aria-labelledby="promises-title">
+      <h2 id="promises-title">Υποσχέσεις</h2>
+      <ul class="promise-grid">
+        <li><svg class="icon" aria-hidden="true"><use href="#shield"/></svg>Η μνήμη του μένει στο κινητό σου</li>
+        <li><svg class="icon" aria-hidden="true"><use href="#pin"/></svg>Δεν βλέπει την τοποθεσία σου στο παρασκήνιο</li>
+        <li><svg class="icon" aria-hidden="true"><use href="#mic"/></svg>Απαντά με φωνή μόνο όταν του μιλάς</li>
+        <li><svg class="icon" aria-hidden="true"><use href="#spark"/></svg>Χωρίς διαφημίσεις</li>
+      </ul>
+    </section>
+
+    <section class="shell section day" id="day" aria-labelledby="day-title">
+      <h2 id="day-title">Μια μέρα με τον Κέρβο</h2>
+      <div class="day-layout">
+        <div class="day-stage" aria-hidden="true" hidden>
+          <time id="day-time">07:30</time>
+          <div class="face-stack day-face living-face" data-face="sun"><img loading="lazy" width="220" height="220" src="assets/faces/sun.svg" alt=""><img loading="lazy" width="220" height="220" alt=""></div>
+        </div>
+        <ol class="day-scenes">
+          <li data-face="sun"><span class="living-face" data-face="sun"><img loading="lazy" width="220" height="220" src="assets/faces/sun.svg" alt=""></span><div><p class="moment"><time datetime="07:30">07:30</time> · Πρωί</p><h3>Καλημέρα!</h3><p>Σήμερα έχεις γυμναστήριο στις 6.</p></div></li>
+          <li data-face="water"><span class="living-face" data-face="water"><img loading="lazy" width="220" height="220" src="assets/faces/water.svg" alt=""></span><div><p class="moment"><time datetime="10:00">10:00</time> · Διάλειμμα</p><h3>Ώρα για νερό</h3><p>Μια γουλιά και συνεχίζουμε.</p></div></li>
+          <li data-face="scientist"><span class="living-face" data-face="scientist"><img loading="lazy" width="220" height="220" src="assets/faces/scientist.svg" alt=""></span><div><p class="moment"><time datetime="13:30">13:30</time> · Περιέργεια</p><h3>Ξέρεις ότι…</h3><p>Οι μέλισσες χορεύουν για να δείξουν πού βρήκαν τροφή;</p></div></li>
+          <li data-face="outside"><span class="living-face" data-face="outside"><img loading="lazy" width="220" height="220" src="assets/faces/outside.svg" alt=""></span><div><p class="moment"><time datetime="17:00">17:00</time> · Βόλτα</p><h3>Βγες λίγο έξω</h3><p>Λίγος καθαρός αέρας κάνει καλό.</p></div></li>
+          <li data-face="karaoke"><span class="living-face" data-face="karaoke"><img loading="lazy" width="220" height="220" src="assets/faces/karaoke.svg" alt=""></span><div><p class="moment"><time datetime="20:00">20:00</time> · Ραδιόφωνο</p><h3>Βάζω ραδιόφωνο</h3><p>Λίγη μουσική για το βράδυ.</p></div></li>
+          <li data-face="sleepy"><span class="living-face" data-face="sleepy"><img loading="lazy" width="220" height="220" src="assets/faces/sleepy.svg" alt=""></span><div><p class="moment"><time datetime="23:00">23:00</time> · Ύπνος</p><h3>Καληνύχτα</h3><p>Τα λέμε αύριο.</p></div></li>
+        </ol>
+      </div>
+    </section>
+    <section class="shell section gallery" id="faces" aria-labelledby="faces-title">
+      <h2 id="faces-title">Οι φατσούλες του Κέρβου</h2>
+      <div class="face-grid" tabindex="0" role="region" aria-label="Οι φατσούλες του Κέρβου">
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="neutral"><img src="assets/faces/neutral.svg" loading="lazy" width="220" height="220" alt=""></span><span>Ήρεμος</span></summary><p>Περιμένει να του μιλήσεις.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="happy"><img src="assets/faces/happy.svg" loading="lazy" width="220" height="220" alt=""></span><span>Χαρά</span></summary><p>Όταν χαίρεται που σε βλέπει.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="laugh"><img src="assets/faces/laugh.svg" loading="lazy" width="220" height="220" alt=""></span><span>Γέλιο</span></summary><p>Όταν του λες κάτι αστείο.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="wink"><img src="assets/faces/wink.svg" loading="lazy" width="220" height="220" alt=""></span><span>Κλείνει το μάτι</span></summary><p>Όταν κρατά μια μικρή υπενθύμιση.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="love"><img src="assets/faces/love.svg" loading="lazy" width="220" height="220" alt=""></span><span>Αγάπη</span></summary><p>Όταν του λες κάτι τρυφερό.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="listen"><img src="assets/faces/listen.svg" loading="lazy" width="220" height="220" alt=""></span><span>Ακούει</span></summary><p>Όταν του μιλάς.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="think"><img src="assets/faces/think.svg" loading="lazy" width="220" height="220" alt=""></span><span>Σκέφτεται</span></summary><p>Όταν ετοιμάζει την απάντησή του.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="curious"><img src="assets/faces/curious.svg" loading="lazy" width="220" height="220" alt=""></span><span>Περιέργεια</span></summary><p>Όταν κάτι του κινεί την περιέργεια.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="confused"><img src="assets/faces/confused.svg" loading="lazy" width="220" height="220" alt=""></span><span>Σύγχυση</span></summary><p>Όταν χρειάζεται μια διευκρίνιση.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="proud"><img src="assets/faces/proud.svg" loading="lazy" width="220" height="220" alt=""></span><span>Περηφάνια</span></summary><p>Όταν κάτι πετύχει.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="surprised"><img src="assets/faces/surprised.svg" loading="lazy" width="220" height="220" alt=""></span><span>Έκπληξη</span></summary><p>Όταν ακούει κάτι απρόσμενο.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="shy"><img src="assets/faces/shy.svg" loading="lazy" width="220" height="220" alt=""></span><span>Ντροπαλός</span></summary><p>Όταν του κάνεις κομπλιμέντο.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="sad"><img src="assets/faces/sad.svg" loading="lazy" width="220" height="220" alt=""></span><span>Λύπη</span></summary><p>Όταν κάτι τον στενοχωρεί.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="angry"><img src="assets/faces/angry.svg" loading="lazy" width="220" height="220" alt=""></span><span>Θυμωμένος (φωτιές)</span></summary><p>Όταν κάτι τον εκνευρίζει.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="sleepy"><img src="assets/faces/sleepy.svg" loading="lazy" width="220" height="220" alt=""></span><span>Νυστάζει</span></summary><p>Όταν φτάνει η ώρα του ύπνου.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="playful"><img src="assets/faces/playful.svg" loading="lazy" width="220" height="220" alt=""></span><span>Παιχνιδιάρης</span></summary><p>Όταν έχει όρεξη για παιχνίδι.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="engineer"><img src="assets/faces/engineer.svg" loading="lazy" width="220" height="220" alt=""></span><span>Μηχανικός</span></summary><p>Όταν μιλά για κατασκευές.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="scientist"><img src="assets/faces/scientist.svg" loading="lazy" width="220" height="220" alt=""></span><span>Επιστήμονας</span></summary><p>Όταν μοιράζεται κάτι που έμαθε.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="doctor"><img src="assets/faces/doctor.svg" loading="lazy" width="220" height="220" alt=""></span><span>Γιατρός</span></summary><p>Όταν θυμίζει ένα ραντεβού με γιατρό.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="angel"><img src="assets/faces/angel.svg" loading="lazy" width="220" height="220" alt=""></span><span>Αγγελικό πρόσωπο</span></summary><p>Όταν κάνει τον αθώο.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="glitch"><img src="assets/faces/glitch.svg" loading="lazy" width="220" height="220" alt=""></span><span>Γκλιτς (κούνημα)</span></summary><p>Όταν κουνάς γρήγορα τη φούσκα.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="sun"><img src="assets/faces/sun.svg" loading="lazy" width="220" height="220" alt=""></span><span>Ήλιος</span></summary><p>Όταν έχει ήλιο.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="rain"><img src="assets/faces/rain.svg" loading="lazy" width="220" height="220" alt=""></span><span>Βροχή</span></summary><p>Όταν προβλέπεται βροχή.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="water"><img src="assets/faces/water.svg" loading="lazy" width="220" height="220" alt=""></span><span>Πίνει νερό</span></summary><p>Όταν σου θυμίζει να πιεις νερό.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="outside"><img src="assets/faces/outside.svg" loading="lazy" width="220" height="220" alt=""></span><span>Βγες έξω</span></summary><p>Όταν σου λέει να βγεις λίγο έξω.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="karaoke"><img src="assets/faces/karaoke.svg" loading="lazy" width="220" height="220" alt=""></span><span>Καραόκε</span></summary><p>Όταν παίζει μουσική.</p></details>
+        <details class="face-tile"><summary class="face-label"><span class="living-face" data-face="knocked"><img src="assets/faces/knocked.svg" loading="lazy" width="220" height="220" alt=""></span><span>Λιποθύμησε (μαξιλάρι)</span></summary><p>Όταν η φούσκα ζαλίζεται.</p></details>
+      </div>
+    </section>
+
+    <section id="button" class="shell section configurator" aria-labelledby="config-title">
+      <h2 id="config-title">Το κουμπί του Κέρβου</h2>
+      <p class="config-intro">Μια ιδέα για ένα στρογγυλό κουμπί που σου λέει τι έχεις σήμερα. Δοκίμασε πώς θα έδειχνε το δικό σου.</p>
+      <div class="config-layout">
+        <div class="config-preview" id="config-preview">
+          <span class="order-flag">Σχέδιο πρωτοτύπου</span>
+          <button id="physical" type="button" data-case="black" data-eyes="amber" data-size="keyring" aria-label="Πάτησε για το σημερινό πρόγραμμα">
+            <img src="assets/faces/neutral.svg" width="220" height="220" loading="lazy" alt="">
+            <img class="physical-happy" src="assets/faces/happy.svg" width="220" height="220" loading="lazy" alt="">
+            <svg class="engraving" viewBox="0 0 200 200" aria-hidden="true">
+              <path id="engraving-path" d="M18 100a82 82 0 0 0 164 0" fill="none"/>
+              <text><textPath id="engraving-text" href="#engraving-path" startOffset="50%" text-anchor="middle"></textPath></text>
+            </svg>
+          </button>
+          <p id="idea-answer" role="status"></p>
+        </div>
+        <div class="config-controls">
+          <fieldset><legend>Χρώμα θήκης <span class="swatch-current" id="case-current" aria-hidden="true">· Μαύρο</span></legend><div class="swatches">
+            <label class="swatch"><input type="radio" name="case-color" value="black" aria-label="Μαύρο" checked><span><i class="color-dot " style="--swatch: #34302d" aria-hidden="true"></i><span class="swatch-name">Μαύρο</span></span></label>
+            <label class="swatch"><input type="radio" name="case-color" value="white" aria-label="Λευκό"><span><i class="color-dot " style="--swatch: #e8dfd3" aria-hidden="true"></i><span class="swatch-name">Λευκό</span></span></label>
+            <label class="swatch"><input type="radio" name="case-color" value="amber" aria-label="Κεχριμπαρένιο"><span><i class="color-dot " style="--swatch: #dc942d" aria-hidden="true"></i><span class="swatch-name">Κεχριμπαρένιο</span></span></label>
+            <label class="swatch"><input type="radio" name="case-color" value="blue" aria-label="Σκούρο μπλε"><span><i class="color-dot " style="--swatch: #243955" aria-hidden="true"></i><span class="swatch-name">Σκούρο μπλε</span></span></label>
+            <label class="swatch"><input type="radio" name="case-color" value="wood" aria-label="Ξύλο"><span><i class="color-dot wood-swatch" style="--swatch: #9b633b" aria-hidden="true"></i><span class="swatch-name">Ξύλο</span></span></label>
+          </div><label class="custom-swatch"><input type="color" id="custom-case" value="#706050" aria-label="Δικό σου χρώμα θήκης"><span>Δικό σου χρώμα</span></label></fieldset>
+          <fieldset><legend>Χρώμα ματιών <span class="swatch-current" id="eyes-current" aria-hidden="true">· Κεχριμπαρένιο</span></legend><div class="swatches">
+            <label class="swatch"><input type="radio" name="eye-color" value="amber" aria-label="Κεχριμπαρένιο" checked><span><i class="color-dot " style="--swatch: #ffb300" aria-hidden="true"></i><span class="swatch-name">Κεχριμπαρένιο</span></span></label>
+            <label class="swatch"><input type="radio" name="eye-color" value="teal" aria-label="Τιρκουάζ"><span><i class="color-dot " style="--swatch: #4be6d9" aria-hidden="true"></i><span class="swatch-name">Τιρκουάζ</span></span></label>
+            <label class="swatch"><input type="radio" name="eye-color" value="pink" aria-label="Ροζ"><span><i class="color-dot " style="--swatch: #ff83bb" aria-hidden="true"></i><span class="swatch-name">Ροζ</span></span></label>
+            <label class="swatch"><input type="radio" name="eye-color" value="white" aria-label="Λευκό"><span><i class="color-dot " style="--swatch: #fff6eb" aria-hidden="true"></i><span class="swatch-name">Λευκό</span></span></label>
+          </div><label class="custom-swatch"><input type="color" id="custom-eyes" value="#c699ff" aria-label="Δικό σου χρώμα ματιών"><span>Δικό σου χρώμα</span></label></fieldset>
+          <fieldset><legend>Μέγεθος</legend><div class="size-options">
+            <label><input type="radio" name="button-size" value="keyring" checked><span><strong>Μπρελόκ</strong><small>περίπου 4 εκ.</small></span></label>
+            <label><input type="radio" name="button-size" value="table"><span><strong>Για το τραπέζι</strong><small>περίπου 6 εκ.</small></span></label>
+          </div></fieldset>
+          <div class="engraving-field"><label for="engraved-name">Δικό σου όνομα</label><input id="engraved-name" placeholder="Προαιρετικό όνομα" maxlength="18" autocomplete="off"></div>
+          <a id="order-button" class="cta" href="mailto:?subject=Κουμπί%20Κέρβου&amp;body=Χρώμα%20θήκης%3A%20Μαύρο%0AΧρώμα%20ματιών%3A%20Κεχριμπαρένιο%0AΜέγεθος%3A%20Μπρελόκ%20·%20περίπου%204%20εκ.%0AΌνομα%3A%20Χωρίς%20χάραξη">Ενδιαφέρομαι <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <ol class="order-steps">
+        <li><svg class="icon" aria-hidden="true"><use href="#design"/></svg><span><b>1.</b> Το σχεδιάζουμε μαζί</span></li>
+        <li><svg class="icon" aria-hidden="true"><use href="#print"/></svg><span><b>2.</b> Τυπώνεται 3D, ένα-ένα</span></li>
+        <li><svg class="icon" aria-hidden="true"><use href="#parcel"/></svg><span><b>3.</b> Φτάνει σε σένα</span></li>
+      </ol>
+    </section>
+
+    <section class="shell section family" aria-labelledby="family-title">
+      <h2 id="family-title">Για όλη την οικογένεια</h2>
+      <p class="family-intro">Κάθε μέρα, άλλος έχει κάτι να του πει.</p>
+      <div class="family-grid">
+        <figure><img src="assets/faces/happy.svg" loading="lazy" width="220" height="220" alt=""><figcaption><p>«Πάρε γάλα»</p></figcaption></figure>
+        <figure><img src="assets/faces/playful.svg" loading="lazy" width="220" height="220" alt=""><figcaption><p>«Πότε έχω κολύμβηση;»</p></figcaption></figure>
+        <figure><img src="assets/faces/curious.svg" loading="lazy" width="220" height="220" alt=""><figcaption><p>«Πού είναι το φαρμακείο;»</p></figcaption></figure>
+        <figure><img src="assets/faces/love.svg" loading="lazy" width="220" height="220" alt=""><figcaption><p>«Θύμισέ μου το χάπι στις 9»</p></figcaption></figure>
+      </div>
+    </section>
+
+    <section id="questions" class="shell section faq" aria-labelledby="faq-title">
+      <h2 id="faq-title">Ερωτήσεις</h2>
+      <div class="faq-list">
+        <details><summary>Χρειάζεται internet;</summary><p>Για τις ερωτήσεις χρειάζεται σύνδεση. Τα ραντεβού και η λίστα γράφονται στο κινητό και συγχρονίζονται μόλις βρει σύνδεση.</p></details>
+        <details><summary>Ακούει συνέχεια;</summary><p>Περιμένει μόνο να ακούσει το όνομά του, πάνω στο κινητό. Ό,τι του πεις μετά πάει στην αναγνώριση ομιλίας της Google για να γίνει κείμενο.</p></details>
+        <details><summary>Πού μένουν τα δεδομένα μου;</summary><p>Η μνήμη και η λίστα μένουν στο κινητό. Τα ραντεβού μπαίνουν στο Ημερολόγιο Google που ήδη χρησιμοποιείς.</p></details>
+        <details><summary>Υπάρχει στο iPhone;</summary><p>Για την ώρα ο Κέρβος είναι για Android.</p></details>
+        <details><summary>Πόσο κοστίζει;</summary><p>Ο Κέρβος είναι σε δοκιμές. <a href="mailto:?subject=Κέρβος">Γράψε μας</a>.</p></details>
+      </div>
+    </section>
+    <section class="shell section video-section" aria-labelledby="video-title" hidden>
+      <h2 id="video-title">Δες τον στην πράξη</h2>
+      <!-- Set data-available to true when kervos-demo.mp4 is added. -->
+      <video controls muted loop playsinline preload="none" data-src="assets/video/kervos-demo.mp4" data-available="false" poster="assets/og-kervos.png" aria-label="Δες τον στην πράξη"></video>
+    </section>
+    <section class="shell section closing" aria-labelledby="closing-title">
+      <img src="assets/faces/wink.svg" width="220" height="220" loading="lazy" alt="">
+      <p>Η μνήμη του μένει στο κινητό σου.</p>
+      <h2 id="closing-title">Ο Κέρβος είναι σε δοκιμές.<br><em>Θες να είσαι από τους πρώτους;</em></h2>
+      <a class="cta" href="mailto:?subject=Κέρβος">Θέλω να το δοκιμάσω <span aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+  <dialog id="chat-dialog" aria-label="Κέρβος Messenger"></dialog>
+  <div class="drop-target" id="drop-target" aria-hidden="true" hidden>×</div>
+  <div class="floating-tip" id="floating-tip" role="status"></div>
+  <button class="floating face-stack" id="floating" type="button" aria-label="Άνοιξε τον Κέρβο Messenger" aria-describedby="float-help" aria-haspopup="dialog" hidden><img width="220" height="220" src="assets/faces/neutral.svg" alt=""><img width="220" height="220" alt=""></button>
+  <p class="sr-only" id="float-help">Σύρε τη φούσκα ή μετακίνησέ τη με τα βελάκια. Με Delete την κλείνεις προσωρινά.</p>
+  <svg class="sr-only" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g id="road-map-base">
+      <path d="M0 17h240M0 42h240M0 65h240M0 84h240M42 0v112M84 0v112M129 0v112M192 0v112" stroke="#493825" stroke-width="3"/>
+      <path d="M0 103c56 0 76-20 116-14s52 14 124 11" stroke="#253b3c" stroke-width="7"/>
+      <path d="M145 19h30v16h-30zM51 46h24v14H51z" fill="#283228"/>
+    </g>
+    <g id="road-map-pin"><ellipse cy="1" rx="7" ry="2" fill="#000" opacity=".65"/><path d="M0 0c-3-6-9-10-9-16a9 9 0 0 1 18 0C9-10 3-6 0 0Z" fill="#ffb300" stroke="#231400" stroke-width="1.4"/><circle cy="-16" r="3" fill="#231400"/></g>
+    <symbol id="design" viewBox="0 0 24 24"><path d="M4 20l4-1L20 7l-3-3L5 16zM14 7l3 3M4 20h16"/></symbol>
+    <symbol id="print" viewBox="0 0 24 24"><path d="m4 7 8-4 8 4-8 4zM4 12l8 4 8-4M4 17l8 4 8-4"/></symbol>
+    <symbol id="parcel" viewBox="0 0 24 24"><path d="m4 7 8-4 8 4v10l-8 4-8-4zM4 7l8 4 8-4M12 11v10M8 5l8 4"/></symbol>
+    <symbol id="mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11v1a7 7 0 0 0 14 0v-1m-7 8v3m-3 0h6"/></symbol>
+    <symbol id="shield" viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3 8 8 11 5-3 8-6 8-11V5zM9 12l2 2 4-4"/></symbol>
+    <symbol id="pin" viewBox="0 0 24 24"><path d="M5 10a7 7 0 1 1 14 0c0 5-7 11-7 11s-7-6-7-11z"/><circle cx="12" cy="10" r="2"/><path d="m3 21 18-18"/></symbol>
+    <symbol id="spark" viewBox="0 0 24 24"><path d="M12 2c0 6 4 10 10 10-6 0-10 4-10 10 0-6-4-10-10-10 6 0 10-4 10-10Z"/></symbol>
+  </svg>
+</body>
+</html>
