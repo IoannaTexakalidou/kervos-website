@@ -1013,57 +1013,32 @@ emergency.addEventListener("click", () => {
 });
 emergencyCancel.addEventListener("click", () => finishEmergency("Η προσομοίωση ακυρώθηκε."));
 
-const closedEyes = new Set(["happy", "laugh", "wink", "proud", "shy", "sleepy", "playful", "angel", "sun", "water", "outside", "karaoke", "knocked"]);
-const animatedArtwork = new Set(["angry", "water", "outside", "karaoke", "sun", "scientist", "sleepy", "rain"]);
-const livingFaces = [...document.querySelectorAll(".living-face")].map(element => {
-  return { element, tile: element.closest(".face-tile"), visible: false };
-});
+const livingFaces = [...document.querySelectorAll(".face-grid .living-face, .day-face")].map(element => ({
+  element, tile: element.closest(".face-tile"), visible: false
+}));
 const dayArtwork = livingFaces.find(face => face.element === dayFace);
-function artworkActive(face) {
-  return motion && !document.hidden && face.visible && (!face.tile || face.element.classList.contains("is-hovered"));
-}
+
 function syncFaceArtwork(face) {
   const name = face.element.dataset.face;
-  const artwork = artworkActive(face) && animatedArtwork.has(name) ? name + "-motion" : name;
+  const active = motion && !document.hidden && face.visible && (!face.tile || face.element.classList.contains("is-hovered"));
+  const artwork = active ? name + "-motion" : name;
   if (face.element === dayFace) {
     showFace(dayFace, artwork);
-  } else if (face.tile) {
+  } else {
     const img = face.element.querySelector("img");
     if (img.getAttribute("src") !== facePath(artwork)) img.src = facePath(artwork);
   }
 }
-function scheduleFaceBlink(face) {
-  clearTimeout(face.timer);
-  syncFaceArtwork(face);
-  if (!artworkActive(face) || animatedArtwork.has(face.element.dataset.face)) {
-    clearTimeout(face.reset);
-    face.element.classList.remove("is-blinking");
-    return;
-  }
-  if (!face.blink && (!closedEyes.has(face.element.dataset.face) || face.element === dayFace)) {
-    face.blink = new Image(220, 220);
-    face.blink.alt = "";
-    face.blink.loading = "lazy";
-    face.blink.className = "blink-face";
-    face.blink.src = facePath("happy");
-    face.element.append(face.blink);
-  }
-  face.timer = setTimeout(() => {
-    if (!closedEyes.has(face.element.dataset.face) && face.blink?.naturalWidth) {
-      face.element.classList.add("is-blinking");
-      face.reset = setTimeout(() => face.element.classList.remove("is-blinking"), 150);
-    }
-    scheduleFaceBlink(face);
-  }, face.tile ? 700 + Math.random() * 1200 : 3000 + Math.random() * 4000);
-}
+
 function syncLivingFaces() {
-  for (const face of livingFaces) scheduleFaceBlink(face);
+  for (const face of livingFaces) syncFaceArtwork(face);
 }
+
 const faceObserver = new IntersectionObserver(entries => {
   for (const entry of entries) {
     const face = livingFaces.find(item => item.element === entry.target);
     face.visible = entry.isIntersecting;
-    scheduleFaceBlink(face);
+    syncFaceArtwork(face);
   }
 });
 for (const face of livingFaces) {
@@ -1072,11 +1047,11 @@ for (const face of livingFaces) {
   face.tile.addEventListener("pointerenter", event => {
     if (event.pointerType !== "mouse") return;
     face.element.classList.add("is-hovered");
-    scheduleFaceBlink(face);
+    syncFaceArtwork(face);
   });
   face.tile.addEventListener("pointerleave", () => {
     face.element.classList.remove("is-hovered");
-    scheduleFaceBlink(face);
+    syncFaceArtwork(face);
   });
 }
 
