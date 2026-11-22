@@ -737,7 +737,6 @@ function updateDay() {
   const last = scenes.at(-1).getBoundingClientRect().top;
   const progress = Math.max(0, Math.min(1, (marker - first) / Math.max(1, last - first)));
   dayStage.style.setProperty("--day-progress", (progress * 100).toFixed(2) + "%");
-  dayStage.style.setProperty("--day-drift", ((progress - .5) * 36).toFixed(2) + "px");
   dayStage.style.setProperty("--day-hue", String(Math.round(35 - progress * 20)));
   const scene = scenes.findLast(item => item.getBoundingClientRect().top <= marker) || scenes[0];
   if (scene === currentScene) return;
@@ -748,7 +747,7 @@ function updateDay() {
   dayTime.textContent = time.textContent;
   dayTime.dateTime = time.dateTime;
   dayFace.dataset.face = scene.dataset.face;
-  showFace(dayFace, scene.dataset.face);
+  syncFaceArtwork(dayArtwork);
 }
 
 function queueDay() {
@@ -1015,13 +1014,28 @@ emergency.addEventListener("click", () => {
 emergencyCancel.addEventListener("click", () => finishEmergency("Η προσομοίωση ακυρώθηκε."));
 
 const closedEyes = new Set(["happy", "laugh", "wink", "proud", "shy", "sleepy", "playful", "angel", "sun", "water", "outside", "karaoke", "knocked"]);
+const animatedArtwork = new Set(["angry", "water", "outside", "karaoke", "sun", "scientist", "sleepy", "rain"]);
 const livingFaces = [...document.querySelectorAll(".living-face")].map(element => {
-  element.style.setProperty("--delay", (-Math.random() * 10).toFixed(2) + "s");
   return { element, tile: element.closest(".face-tile"), visible: false };
 });
+const dayArtwork = livingFaces.find(face => face.element === dayFace);
+function artworkActive(face) {
+  return motion && !document.hidden && face.visible && (!face.tile || face.element.classList.contains("is-hovered"));
+}
+function syncFaceArtwork(face) {
+  const name = face.element.dataset.face;
+  const artwork = artworkActive(face) && animatedArtwork.has(name) ? name + "-motion" : name;
+  if (face.element === dayFace) {
+    showFace(dayFace, artwork);
+  } else if (face.tile) {
+    const img = face.element.querySelector("img");
+    if (img.getAttribute("src") !== facePath(artwork)) img.src = facePath(artwork);
+  }
+}
 function scheduleFaceBlink(face) {
   clearTimeout(face.timer);
-  if (!motion || document.hidden || !face.visible || (face.tile && !face.element.classList.contains("is-hovered"))) {
+  syncFaceArtwork(face);
+  if (!artworkActive(face) || animatedArtwork.has(face.element.dataset.face)) {
     clearTimeout(face.reset);
     face.element.classList.remove("is-blinking");
     return;
@@ -1040,7 +1054,7 @@ function scheduleFaceBlink(face) {
       face.reset = setTimeout(() => face.element.classList.remove("is-blinking"), 150);
     }
     scheduleFaceBlink(face);
-  }, 3000 + Math.random() * 4000);
+  }, face.tile ? 700 + Math.random() * 1200 : 3000 + Math.random() * 4000);
 }
 function syncLivingFaces() {
   for (const face of livingFaces) scheduleFaceBlink(face);
